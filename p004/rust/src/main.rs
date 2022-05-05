@@ -1,19 +1,17 @@
+// 回文数の判定
 //fn is_palindromic(val: u32) -> bool{
 fn is_kaibun(_val: i32) -> bool {
     let mut val = _val;
     let mut num_list = Vec::new();
-
-    // 桁数を求める
-    let digits = f32::ceil(f32::log10(val as f32)) as i32;
-
-    // 一桁ずつ分離
-    let mut n = digits;
-    while n > 0 {
+    
+    // 数値桁
+    let mut digits = 0; // 数値桁数のカウンタ
+    while val > 0 {
         let num = val % 10;
         num_list.push(num);
 
         val = (val / 10) as i32;
-        n -= 1;
+        digits += 1;
     }
 
 
