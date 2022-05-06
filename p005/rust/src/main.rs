@@ -4,10 +4,10 @@
 /// では, 1 から 20 までの整数全てで割り切れる数字の中で最小の正の数はいくらになるか
 
 fn mod_chk(val : u32) -> bool{
-    let total = 20;
+    let max = 20;
 
-    for i in 0..total {
-        if val % (total-i) != 0 { return false; }
+    for i in 0..max {
+        if val % (max-i) != 0 { return false; }
     }
 
     true
