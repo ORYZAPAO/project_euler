@@ -1,7 +1,22 @@
-fn calc(ary: &[[i32; 20]; 20], x: usize, y: usize) {
-    let sum_c = ary[y][x] + ary[y + 1][x] + ary[y + 2][x] + ary[y + 3][x];
-    let sum_r = ary[y][x] + ary[y][x + 1] + ary[y][x + 2] + ary[y][x + 3];
-    let sum_x = ary[y][x] + ary[y + 1][x + 1] + ary[y + 2][x + 2] + ary[y + 3][x + 3];
+fn calc(ary: &[[i32; 20]; 20], x: usize, y: usize) -> i32 {
+    let sum_y = ary[y][x] * ary[y + 1][x] * ary[y + 2][x] * ary[y + 3][x];
+    let sum_x = ary[y][x] * ary[y][x + 1] * ary[y][x + 2] * ary[y][x + 3];
+    let sum_xy = ary[y][x] * ary[y + 1][x + 1] * ary[y + 2][x + 2] * ary[y + 3][x + 3];
+    let sum_yx = ary[y + 3][x] * ary[y + 2][x + 1] * ary[y + 1][x + 2] * ary[y][x + 3];
+
+    let mut max = sum_y;
+
+    if max < sum_x {
+        max = sum_x;
+    }
+    if max < sum_xy {
+        max = sum_xy;
+    }
+    if max < sum_yx {
+        max = sum_yx;
+    }
+
+    max
 }
 
 fn main() {
@@ -68,27 +83,17 @@ fn main() {
             01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48,
         ],
     ];
-    /**/
-    println!("Hello, world!{:?}", ary);
-    println!("Hello, world!{:02}", ary[0][1]);
-    println!("Hello, world!{:02}", ary[1][0]);
-    println!("Hello, world!{:02}", ary[2][0]);
 
-    /*        oooo
-            oooo
-            oooo
-            oooo
-    */
     let mut max = 0;
-    //    let mut
 
-    calc(&ary, 0, 0);
-
-    for y in 0..20 {
-        for x in 0..20 {
-            print!("{:02} ", ary[y][x]);
-            let left = ary[x][y] + ary[x][y] + ary[x][y] + ary[x][y];
+    for y in 0..20 - 4 {
+        for x in 0..20 - 4 {
+            let rslt = calc(&ary, y, x);
+            if max < rslt {
+                max = rslt;
+            }
         }
-        println!("");
     }
+
+    println!("Anser: = {}", max)
 }
